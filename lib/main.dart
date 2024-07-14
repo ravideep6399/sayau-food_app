@@ -1,34 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/menu.dart';
+import 'package:food_app/navigation_controls.dart';
+import 'package:food_app/web_view_stack.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MaterialApp(
+     debugShowCheckedModeBanner: false,
+     home: WebViewApp(),
+  ));
 }
 
-class MyApp extends StatefulWidget {
 
-  const MyApp({super.key});
+class WebViewApp extends StatefulWidget {
+  const WebViewApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<WebViewApp> createState() => _WebViewAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-    final controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..loadRequest(Uri.parse("https://demo.sayau.in/public/"));
+class _WebViewAppState extends State<WebViewApp> {
+  late final WebViewController controller;
 
+  @override
+  void initState() {
+    super.initState();
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(
+        Uri.parse('https://demo.sayau.in/public/'),
+      );
+  }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('WebView Example'),
-        ),
-        body: WebViewWidget(controller: controller,
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          NavigationControls(controller: controller),
+          Menu(controller: controller), 
+        ],
+        backgroundColor: Colors.white,
       ),
+      body: WebViewStack(controller: controller,),
     );
   }
 }
