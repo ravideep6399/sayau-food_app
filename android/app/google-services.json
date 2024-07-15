@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "676666929669",
+    "project_id": "pushnotification-8cb11",
+    "storage_bucket": "pushnotification-8cb11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676666929669:android:dd88995f23ff028b99226c",
+        "android_client_info": {
+          "package_name": "com.example.food_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzDvrzDZcRMqk35_coggSwsLgYy3PELyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676666929669:android:43a82f256653945499226c",
+        "android_client_info": {
+          "package_name": "com.example.foodapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzDvrzDZcRMqk35_coggSwsLgYy3PELyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

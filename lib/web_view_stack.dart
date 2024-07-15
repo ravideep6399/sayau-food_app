@@ -12,12 +12,12 @@ class WebViewStack extends StatefulWidget {
 
 class _WebViewStackState extends State<WebViewStack> {
   var loadingPercentage = 0;
-
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
-    widget.controller 
-      .setNavigationDelegate(NavigationDelegate(
+    widget.controller
+      ..setNavigationDelegate(NavigationDelegate(
         onPageStarted: (url) {
           setState(() {
             loadingPercentage = 0;
@@ -31,6 +31,7 @@ class _WebViewStackState extends State<WebViewStack> {
         onPageFinished: (url) {
           setState(() {
             loadingPercentage = 100;
+            isLoading = false;
           });
         },
         onNavigationRequest: (navigation) {
@@ -47,18 +48,34 @@ class _WebViewStackState extends State<WebViewStack> {
           }
           return NavigationDecision.navigate;
         },
-      ));
+      ))
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..addJavaScriptChannel(
+        'SnackBar',
+        onMessageReceived: (message) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(message.message)));
+        },
+      );
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        WebViewWidget(
-          controller: widget.controller,
-        ),
+        isLoading
+            ? Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    image: DecorationImage(
+                        image: AssetImage("assets/bach_logo2.png"))),
+              )
+            : WebViewWidget(
+                controller: widget.controller,
+              ),
         if (loadingPercentage < 100)
           LinearProgressIndicator(
+            backgroundColor: Colors.white,
             color: Colors.red,
             value: loadingPercentage / 100.0,
           ),
