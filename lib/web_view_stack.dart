@@ -64,21 +64,46 @@ class _WebViewStackState extends State<WebViewStack> {
     return Stack(
       children: [
         isLoading
-            ? Container(
-                decoration: const BoxDecoration(
+            ? SizedBox(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const SizedBox(),
+                  Container(
+                    height: 65,
                     color: Colors.white,
-                    image: DecorationImage(
-                        image: AssetImage("assets/bach_logo2.png"))),
-              )
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                          // height: 350,
+                          decoration: const BoxDecoration(
+                              // color: Colors.yellow,
+                              image: DecorationImage(
+                                  image: AssetImage("assets/syau_logo.png"),fit: BoxFit.contain)),
+                        ),
+                    ),
+                  ),
+                  const CircularProgressIndicator(color: Colors.red,)
+                ],
+              ),
+            )
             : WebViewWidget(
                 controller: widget.controller,
               ),
-        if (loadingPercentage < 100)
-          LinearProgressIndicator(
-            backgroundColor: Colors.white,
-            color: Colors.red,
-            value: loadingPercentage / 100.0,
+        if (loadingPercentage < 100 && !isLoading)
+          Container(
+            color: Color.fromARGB(150, 0, 0, 0),
+            child: const Center(
+              child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+            ),
           ),
+        // LinearProgressIndicator(
+        //   backgroundColor: Colors.white,
+        //   color: Colors.red,
+        //   value: loadingPercentage / 100.0,
+        // ),
       ],
     );
   }
